@@ -1,18 +1,6 @@
 import curses
 from curses import window
 
-# def move(y: int, x: int) -> list:
-#     snake = [[0,2], [0,1], [0,0]]
-#     old_snake = snake.copy()
-
-#     if old_snake != snake:
-#         snake[1] = old_snake[0]
-#         snake[2] = old_snake[1]
-
-#     return snake
-
-
-
 def main(stdscr: window):
     curses.curs_set(0)
     x, y = 0, 0
