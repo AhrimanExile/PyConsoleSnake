@@ -1,16 +1,26 @@
 import curses
 from curses import window
 
+# def move(y: int, x: int) -> list:
+#     snake = [[0,2], [0,1], [0,0]]
+#     old_snake = snake.copy()
+
+#     if old_snake != snake:
+#         snake[1] = old_snake[0]
+#         snake[2] = old_snake[1]
+
+#     return snake
+
+
+
 def main(stdscr: window):
     curses.curs_set(0)
     x, y = 0, 0
-    old_x, old_y = 0, 0
+    snake = [[0,2], [0,1], [0,0]]
+    old_snake = snake.copy()
     while True:
         comand = stdscr.getch()
         height, width = stdscr.getmaxyx()
-        
-        stdscr.move(old_y, old_x)
-        stdscr.clrtoeol()
 
         if comand == curses.KEY_UP:
             y -= 1
@@ -31,12 +41,23 @@ def main(stdscr: window):
         elif x < 0:
             x = width - 1
 
+        snake[0] = [y, x]
+
+        if old_snake != snake:
+            snake[1] = old_snake[0]
+            snake[2] = old_snake[1]
+            try:
+                stdscr.addstr(*old_snake[-1], " ")
+            except curses.error:
+                pass
+
         try:
-            stdscr.addstr(y, x, "@")
+            stdscr.addstr(*snake[0], "@")
+            stdscr.addstr(*snake[1], "@")
+            stdscr.addstr(*snake[2], "@")
             stdscr.refresh()
         except curses.error:
             pass
 
-        old_y, old_x = y, x
-
+        old_snake = snake.copy()
 curses.wrapper(main)
