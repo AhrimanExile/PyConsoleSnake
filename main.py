@@ -6,18 +6,46 @@ def main(stdscr: window):
     x, y = 0, 0
     snake = [[0,2], [0,1], [0,0]]
     old_snake = snake.copy()
+    last_direction = None
+    stdscr.nodelay(True)
+    stdscr.timeout(100)
     while True:
-        comand = stdscr.getch()
+        direction = stdscr.getch()
         height, width = stdscr.getmaxyx()
 
-        if comand == curses.KEY_UP:
-            y -= 1
-        elif comand == curses.KEY_DOWN:
-            y += 1
-        elif comand == curses.KEY_LEFT:
-            x -= 1
-        elif comand == curses.KEY_RIGHT:
+        if direction != -1:
+            last_direction = direction
+        if last_direction is None:
             x += 1
+        else:
+            if last_direction == curses.KEY_UP:
+                raw = stdscr.inch(y-1, x)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char != "@":
+                    y -= 1
+                else:
+                    y += 1
+            elif last_direction == curses.KEY_DOWN:
+                raw = stdscr.inch(y+1, x)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char != "@":
+                    y += 1
+                else:
+                    y -= 1
+            elif last_direction == curses.KEY_LEFT:
+                raw = stdscr.inch(y, x-1)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char != "@":
+                    x -= 1
+                else:
+                    x += 1
+            elif last_direction == curses.KEY_RIGHT:
+                raw = stdscr.inch(y, x+1)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char != "@":
+                    x += 1
+                else:
+                    x -= 1
 
         if y >= height:
             y = 0
