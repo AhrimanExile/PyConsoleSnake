@@ -4,7 +4,7 @@ from curses import window
 def main(stdscr: window):
     curses.curs_set(0)
     x, y = 0, 0
-    snake = [[0,2], [0,1], [0,0]]
+    snake = [[0,3], [0,2], [0,1], [0,0]]
     old_snake = snake.copy()
     last_direction = None
     stdscr.nodelay(True)
@@ -58,19 +58,16 @@ def main(stdscr: window):
             x = width - 1
 
         snake[0] = [y, x]
-
-        if old_snake != snake:
-            snake[1] = old_snake[0]
-            snake[2] = old_snake[1]
-            try:
-                stdscr.addstr(*old_snake[-1], " ")
-            except curses.error:
-                pass
+        for i in range(1, len(snake)):
+            snake[i] = old_snake[i-1]
+        try:
+            stdscr.addstr(*old_snake[-1], " ")
+        except curses.error:
+            pass
 
         try:
-            stdscr.addstr(*snake[0], "@")
-            stdscr.addstr(*snake[1], "@")
-            stdscr.addstr(*snake[2], "@")
+            for bit in snake:
+                 stdscr.addstr(*bit, "@")
             stdscr.refresh()
         except curses.error:
             pass
