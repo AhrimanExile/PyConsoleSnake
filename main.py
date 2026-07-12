@@ -1,3 +1,4 @@
+import random
 import curses
 from curses import window
 
@@ -34,6 +35,9 @@ def main(stdscr: window):
                     try:
                         for bit in snake:
                             stdscr.addstr(*bit, "@")
+                        y_food = random.randint(1, height-2)
+                        x_food = random.randint(3, width-2)
+                        stdscr.addstr(y_food, x_food, "*")
                         stdscr.refresh()
                     except curses.error:
                         pass
@@ -55,6 +59,9 @@ def main(stdscr: window):
                     try:
                         for bit in snake:
                             stdscr.addstr(*bit, "@")
+                        y_food = random.randint(1, height-2)
+                        x_food = random.randint(3, width-2)
+                        stdscr.addstr(y_food, x_food, "*")
                         stdscr.refresh()
                     except curses.error:
                         pass
@@ -75,6 +82,9 @@ def main(stdscr: window):
                     try:
                         for bit in snake:
                             stdscr.addstr(*bit, "@")
+                        y_food = random.randint(1, height-2)
+                        x_food = random.randint(3, width-2)
+                        stdscr.addstr(y_food, x_food, "*")
                         stdscr.refresh()
                     except curses.error:
                         pass
@@ -95,6 +105,9 @@ def main(stdscr: window):
                     try:
                         for bit in snake:
                             stdscr.addstr(*bit, "@")
+                        y_food = random.randint(1, height-2)
+                        x_food = random.randint(3, width-2)
+                        stdscr.addstr(y_food, x_food, "*")
                         stdscr.refresh()
                     except curses.error:
                         pass
