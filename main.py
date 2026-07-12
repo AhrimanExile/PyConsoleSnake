@@ -4,11 +4,12 @@ from curses import window
 def main(stdscr: window):
     curses.curs_set(0)
     x, y = 0, 0
-    snake = [[0,3], [0,2], [0,1], [0,0]]
+    snake = [[0,2], [0,1], [0,0]]
     old_snake = snake.copy()
     last_direction = None
     stdscr.nodelay(True)
     stdscr.timeout(100)
+    stdscr.addstr(4, 5, "*")
     while True:
         direction = stdscr.getch()
         height, width = stdscr.getmaxyx()
@@ -25,6 +26,20 @@ def main(stdscr: window):
                     y -= 1
                 else:
                     y += 1
+                
+                raw = stdscr.inch(y, x)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char == "*":
+                    snake.insert(0, [y, x])
+                    try:
+                        for bit in snake:
+                            stdscr.addstr(*bit, "@")
+                        stdscr.refresh()
+                    except curses.error:
+                        pass
+                    old_snake = snake.copy()
+                    continue
+
             elif last_direction == curses.KEY_DOWN:
                 raw = stdscr.inch(y+1, x)
                 char = chr(raw & curses.A_CHARTEXT)
@@ -32,6 +47,19 @@ def main(stdscr: window):
                     y += 1
                 else:
                     y -= 1
+                
+                raw = stdscr.inch(y, x)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char == "*":
+                    snake.insert(0, [y, x])
+                    try:
+                        for bit in snake:
+                            stdscr.addstr(*bit, "@")
+                        stdscr.refresh()
+                    except curses.error:
+                        pass
+                    old_snake = snake.copy()
+                    continue
             elif last_direction == curses.KEY_LEFT:
                 raw = stdscr.inch(y, x-1)
                 char = chr(raw & curses.A_CHARTEXT)
@@ -39,6 +67,19 @@ def main(stdscr: window):
                     x -= 1
                 else:
                     x += 1
+                
+                raw = stdscr.inch(y, x)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char == "*":
+                    snake.insert(0, [y, x])
+                    try:
+                        for bit in snake:
+                            stdscr.addstr(*bit, "@")
+                        stdscr.refresh()
+                    except curses.error:
+                        pass
+                    old_snake = snake.copy()
+                    continue
             elif last_direction == curses.KEY_RIGHT:
                 raw = stdscr.inch(y, x+1)
                 char = chr(raw & curses.A_CHARTEXT)
@@ -46,6 +87,19 @@ def main(stdscr: window):
                     x += 1
                 else:
                     x -= 1
+                
+                raw = stdscr.inch(y, x)
+                char = chr(raw & curses.A_CHARTEXT)
+                if char == "*":
+                    snake.insert(0, [y, x])
+                    try:
+                        for bit in snake:
+                            stdscr.addstr(*bit, "@")
+                        stdscr.refresh()
+                    except curses.error:
+                        pass
+                    old_snake = snake.copy()
+                    continue
 
         if y >= height:
             y = 0
