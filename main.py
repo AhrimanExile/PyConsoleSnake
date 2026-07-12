@@ -122,15 +122,8 @@ def main(stdscr: window):
                 elif char == "@":
                     break
 
-        if y >= height:
-            y = 0
-        elif y < 0:
-            y = height - 1
-        
-        if x >= width:
-            x = 0
-        elif x < 0:
-            x = width - 1
+        if x == width or y == height or x == -1 or y == -1:
+            break
 
         snake[0] = [y, x]
         for i in range(1, len(snake)):
