@@ -43,6 +43,8 @@ def main(stdscr: window):
                         pass
                     old_snake = snake.copy()
                     continue
+                elif char == "@":
+                    break
 
             elif last_direction == curses.KEY_DOWN:
                 raw = stdscr.inch(y+1, x)
@@ -67,6 +69,8 @@ def main(stdscr: window):
                         pass
                     old_snake = snake.copy()
                     continue
+                elif char == "@":
+                    break
             elif last_direction == curses.KEY_LEFT:
                 raw = stdscr.inch(y, x-1)
                 char = chr(raw & curses.A_CHARTEXT)
@@ -90,6 +94,8 @@ def main(stdscr: window):
                         pass
                     old_snake = snake.copy()
                     continue
+                elif char == "@":
+                    break
             elif last_direction == curses.KEY_RIGHT:
                 raw = stdscr.inch(y, x+1)
                 char = chr(raw & curses.A_CHARTEXT)
@@ -113,6 +119,8 @@ def main(stdscr: window):
                         pass
                     old_snake = snake.copy()
                     continue
+                elif char == "@":
+                    break
 
         if y >= height:
             y = 0
